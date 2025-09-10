@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Overnight Trading Analysis — Executive Dashboard</title>
+  <title>09/09/2025 Overnight Data — BlueOcean ATS (BOATS)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js" defer></script>
   <style>
     :root {
@@ -71,9 +71,9 @@
 <body>
   <main class="shell">
     <header class="header">
-      <div class="eyebrow">Overnight Trading Analysis</div>
-      <h1 class="title">Volume, Notional, Depth & Momentum</h1>
-      <p class="subtitle">September 9, 2025 • Overnight Session</p>
+      <div class="eyebrow">BlueOcean ATS (BOATS)</div>
+      <h1 class="title">09/09/2025 Overnight Data</h1>
+      <p class="subtitle">Volume, Notional, Depth &amp; Momentum • Overnight Session</p>
       <section class="kpis">
         <div class="kpi"><div class="label">Total Notional</div><div class="value">$1.50B</div></div>
         <div class="kpi"><div class="label">Total Volume</div><div class="value">21.3M</div></div>
@@ -190,10 +190,8 @@
     </section>
 
     <div class="footer">
-      <div>Prepared by: Sapinover LLC Research & Market Structure Analytics</div>
-      <div>Methodology: Consolidated overnight tape; power‑law distribution applied; bid/ask converted to notional; sector shares reflect top‑50; momentum analysis flagged news‑driven outliers.
-        Data Provided by BlueOcean ATS.
-      </div>
+      <div>Prepared by: Research & Market Structure Analytics</div>
+      <div>Methodology: Consolidated overnight tape; power‑law distribution applied; bid/ask converted to notional; sector shares reflect top‑50; momentum analysis flagged news‑driven outliers.</div>
     </div>
   </main>
 
@@ -241,6 +239,24 @@
       const bpsVsVolTrace = { x: vol, y: bps, text: x, mode: 'markers+text', textposition: 'top center', type: 'scatter', marker: { size: 9, color: violet, opacity: 0.85 } };
       const bpsVsVolLayout = { ...baseLayout, title: { text: 'Spread (bps) vs Volume — Top Names', font: { size: 16 } }, xaxis: { title: 'Volume (shares)', type: 'log' }, yaxis: { title: 'Spread (bps)' } };
       Plotly.newPlot('spreadBpsVsVol', [bpsVsVolTrace], bpsVsVolLayout, { displayModeBar: false, responsive: true });
+
+      // BOATS branding — titles & tooltips
+      try {
+        Plotly.relayout('volumeDistribution',   {'title.text': 'Volume Distribution — Stock Count by Range — BOATS'});
+        Plotly.relayout('volumeNotionalChart',  {'title.text': 'Top 10 Securities — Volume vs Notional — BOATS'});
+        Plotly.relayout('momentumChart',        {'title.text': 'Volume–Momentum Correlation (0.34) — BOATS'});
+        Plotly.relayout('sectorChart',          {'title.text': 'Sector Distribution — Top 50 — BOATS'});
+        Plotly.relayout('spreadBpsTop',         {'title.text': 'Top 10 — Spread in Basis Points (bps) — BOATS'});
+        Plotly.relayout('spreadBpsVsVol',       {'title.text': 'Spread (bps) vs Volume — Top Names — BOATS'});
+
+        Plotly.restyle('volumeDistribution',  {hovertemplate: '%{x}<br>%{y} securities — BOATS<extra></extra>'}, [0]);
+        Plotly.restyle('volumeNotionalChart', {hovertemplate: '%{x}<br>Volume: %{y:,} shrs — BOATS<extra></extra>'}, [0]);
+        Plotly.restyle('volumeNotionalChart', {hovertemplate: '%{x}<br>Notional: $%{y:.2f}M — BOATS<extra></extra>'}, [1]);
+        Plotly.restyle('momentumChart',       {hovertemplate: 'Rel Vol: %{x:.1f}<br>Rel Volatility: %{y:.2f} — BOATS<extra></extra>'}, [0]);
+        Plotly.restyle('sectorChart',         {hovertemplate: '%{label}: %{percent} — BOATS<extra></extra>'}, [0]);
+        Plotly.restyle('spreadBpsTop',        {hovertemplate: '%{x}<br>Spread: %{y:.1f} bps — BOATS<extra></extra>'}, [0]);
+        Plotly.restyle('spreadBpsVsVol',      {hovertemplate: '%{text}<br>Volume: %{x:,}<br>Spread: %{y:.1f} bps — BOATS<extra></extra>'}, [0]);
+      } catch (e) { console.warn('BOATS branding patch:', e); }
     });
   </script>
 </body>
